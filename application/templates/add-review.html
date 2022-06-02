@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+{% block body %}
+  <h1>New review</h1>
+  <form action="/add-review" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.book.label }} {{ form.book }}
+    <br />
+    {{ form.headline.label }} {{ form.headline }}
+    <br />
+    {{ form.rating.label }} ⭐{{ form.rating }}
+    <br />
+    {{ form.body.label }} {{ form.body }}
+    <br />
+    {{ form.submit }}
+  </form>
+{% endblock %}

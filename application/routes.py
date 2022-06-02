@@ -1,12 +1,13 @@
 from application import app, db
-from application.forms import NewBookForm
-from application.models import Book
+from application.forms import NewBookForm, NewReviewForm
+from application.models import Book, Review
 from flask import render_template, redirect, url_for
 
 
 @app.route('/')
 def home():
   return render_template('index.html')
+
 
 @app.route('/add-book', methods=['GET', 'POST'])
 def add_book():
@@ -19,3 +20,25 @@ def add_book():
     return redirect(url_for('home'))
 
   return render_template('add-book.html', form=form)
+ 
+
+@app.route('/add-review', methods=['GET', 'POST'])
+def add_review():
+  form = NewReviewForm()
+  books = Book.query.all()
+  
+  for book in books:
+    form.book.choices.append([book.id, f'{book.title} ({book.author})'])  # type: ignore
+
+  if form.validate_on_submit():
+    new_review = Review(
+        book_id=form.book.data,
+        rating=form.rating.data,
+        headline=form.headline.data,
+        body=form.body.data
+    )
+    db.session.add(new_review)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+  return render_template('add-review.html', form=form)
