@@ -48,6 +48,36 @@
     text-decoration: none;
   }
 
+  input, select, textarea {
+    margin-bottom: 1rem;
+    padding: 0.25rem;
+    border-radius: 3px;
+    border: solid 2px var(--color-divider);
+    background: none;
+    font-family: inherit;
+    color: var(--color-text);
+  }
+
+  input[type=submit] {
+    cursor: pointer;
+    padding: 0.25rem 1rem;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+
+  input[type=submit]:hover {
+    border-color: var(--color-accent);
+  }
+
+  label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
   .main-wrapper {
     margin: auto;
     max-width: 50rem;
