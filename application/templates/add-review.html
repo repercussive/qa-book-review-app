@@ -1,16 +1,41 @@
 {% extends "_base.html" %}
 {% block body %}
-  <h1>New review</h1>
-  <form action="/add-review" method="post">
+  <h2 style="margin-bottom: 1rem;">Create a new review</h2>
+  <form action="/add-review" method="post" class="review-form">
     {{ form.hidden_tag() }}
     {{ form.book.label }} {{ form.book }}
-    <br />
+    {{ form.rating.label }}<div><span id="star" class="accent">★</span>{{ form.rating }}</div>
     {{ form.headline.label }} {{ form.headline }}
-    <br />
-    {{ form.rating.label }} ⭐{{ form.rating }}
-    <br />
     {{ form.body.label }} {{ form.body }}
-    <br />
     {{ form.submit }}
   </form>
+{% endblock %}
+
+{% block style %}
+<style>
+  form.review-form select, form.review-form input {
+    min-width: 100%;
+    display: block;
+  }
+
+  form.review-form #rating {
+    min-width: calc(100% - 2rem);
+    display: inline-block;
+  }
+
+  form.review-form #star {
+    display: inline-block;
+    width: 2rem;
+    text-align: center;
+  }
+
+  form.review-form #body {
+    width: 100%;
+    min-height: 10rem;
+  }
+
+  form.review-form input[type=submit] {
+    width: 100%;
+  }
+</style>
 {% endblock %}
