@@ -9,7 +9,7 @@ class NewBookForm(FlaskForm):
 
 class NewReviewForm(FlaskForm):
   book = SelectField('Book:', choices=[], validators=[DataRequired()])
-  headline = StringField('Headline:', validators=[DataRequired(), Length(max=100)])
   rating = IntegerField('Rating:', default=5, validators=[NumberRange(min=1, max=5)])
+  headline = StringField('Review headline:', validators=[DataRequired(), Length(max=100)])
   body = TextAreaField('Write your review here:', validators=[DataRequired(), Length(max=8000)])
   submit = SubmitField('Add')
