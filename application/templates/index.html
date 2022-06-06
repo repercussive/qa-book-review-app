@@ -1,6 +1,24 @@
 {% extends "_base.html" %}
 {% block body %}
-<p>Hello 😎</p>
-<a href="/add-book">Add book</a>
-<a href="/add-review">Add review</a>
+<h2>Find & create book reviews</h2><br />
+<p style="margin-bottom: 2rem;">
+  Looking for something to read? Head <a href="/books">here</a>.<br/>
+  Or go <a href="/add-review">here</a> to create a review for a book you love (or hate).
+</p>
+<h2>Recent reviews</h2><br />
+<div id="review-summaries-section">
+  {% for review in reviews %}
+  {% include "/components/review-summary.html" %}
+  {% endfor %}
+  {% endblock %}
+</div>
+
+{% block style %}
+<style>
+  #review-summaries-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,   minmax(min(280px,100%), 1fr));
+    grid-gap: 1rem;
+  }
+</style>
 {% endblock %}
