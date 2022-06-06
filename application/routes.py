@@ -6,7 +6,8 @@ from flask import render_template, redirect, url_for
 
 @app.route('/')
 def home():
-  return render_template('index.html')
+  recent_reviews = Review.query.limit(5).all()
+  return render_template('index.html', reviews=recent_reviews)
 
 
 @app.route('/add-book', methods=['GET', 'POST'])

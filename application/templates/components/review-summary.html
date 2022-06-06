@@ -1,0 +1,41 @@
+<div class="review-summary-wrapper">
+  <div class="rating">
+    {% for i in range(5) %}
+    {% if review.rating > i %}
+    <span>★</span>
+    {% else %}
+    <span>☆</span>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  <h3>
+    <span>{{review.book.title}}</span>
+    <span>by {{review.book.author}}</span>
+  </h3>
+
+  <p>
+    {{review.headline}}
+  </p>
+
+  <div style="display: flex; align-items: center;">
+    <div style="border-bottom: solid 2px #4f4f4f; flex: 1;"></div>
+    <a href="/review/{{review.id}}" style="display: block; margin-left: 1rem;">Read review</a>
+  </div>
+</div>
+
+<style>
+  .review-summary-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: solid 2px #868686;
+    background-color: #3b3b3b;
+    border-radius: 4px;
+  }
+
+  .review-summary-wrapper .rating {
+    font-size: 1.5rem;
+    color: var(--color-accent);
+  }
+</style>
