@@ -4,6 +4,9 @@
   <form action="/add-review" method="post" class="review-form">
     {{ form.hidden_tag() }}
     {{ form.book.label }} {{ form.book }}
+    <p style="margin-bottom: 1rem">
+      Don't see your book listed? <a href="/add-book?toreview=true">Add it here</a>.
+    </p>
     {{ form.rating.label }}<div><span id="star" class="accent">★</span>{{ form.rating }}</div>
     {{ form.headline.label }} {{ form.headline }}
     {{ form.body.label }} {{ form.body }}

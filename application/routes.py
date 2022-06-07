@@ -6,7 +6,7 @@ from flask import render_template, redirect, url_for
 
 @app.route('/')
 def home():
-  recent_reviews = Review.query.limit(5).all()
+  recent_reviews = Review.query.limit(6).all()
   return render_template('index.html', reviews=recent_reviews)
 
 
@@ -18,13 +18,13 @@ def add_book():
     new_book = Book(title=form.title.data, author=form.author.data)
     db.session.add(new_book)
     db.session.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('add_review', book_id=new_book.id))
 
   return render_template('add-book.html', form=form)
  
 
 @app.route('/add-review', methods=['GET', 'POST'])
-def add_review():
+def add_review(): 
   form = NewReviewForm()
   books = Book.query.all()
   
