@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+{% block body %}
+{% include "/components/star-rating.html" %}
+<div class="review-wrapper">
+  <h2>
+    {{review.book.title}} by {{review.book.author}}
+  </h2>
+  <h3>
+    {{review.headline}}
+  </h3>
+  <p class="review-body">{{review.body}}</p>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+  .review-wrapper h2 {
+    margin-top: 0.5rem; 
+    margin-bottom: 0.25rem;
+  }
+
+  .review-wrapper h3 {
+    font-style: italic; 
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+  }
+
+  .review-body {
+    padding: 1rem 0;
+    border-top: solid 2px var(--color-divider);
+  }
+</style>
+{% endblock %}

@@ -9,6 +9,11 @@ def home():
   recent_reviews = Review.query.limit(6).all()
   return render_template('index.html', reviews=recent_reviews)
 
+@app.route('/review/<int:id>')
+def review(id):
+  review = Review.query.get(id)
+  return render_template('review.html', review=review)
+
 
 @app.route('/add-book', methods=['GET', 'POST'])
 def add_book():
