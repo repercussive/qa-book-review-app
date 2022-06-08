@@ -1,0 +1,16 @@
+<div class="star-rating">
+  {% for i in range(5) %}
+  {% if review.rating > i %}
+  <span>★</span>
+  {% else %}
+  <span>☆</span>
+  {% endif %}
+  {% endfor %}
+</div>
+
+<style>
+  .star-rating {
+    font-size: 1.5rem;
+    color: var(--color-accent);
+  }
+</style>
