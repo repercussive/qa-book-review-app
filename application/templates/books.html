@@ -1,7 +1,21 @@
 {% extends "_base.html" %}
 {% block body %}
-  <h2 style="margin-bottom: 1rem;">Books</h2>
+  <div class="books-page-header-wrapper">
+    <h2>Books</h2>
+    <a href="/add-book" class="button">Add new</a>
+  </div>
   {% for book_id, book_data in books_data.items() %}
   {% include "/components/book-summary.html" %}
   {% endfor %}
+{% endblock %}
+
+{% block style %}
+<style>
+  .books-page-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+</style>
 {% endblock %}
