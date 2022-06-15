@@ -50,27 +50,28 @@
     text-decoration: none;
   }
 
-  input, select, textarea {
+  input, select, textarea, .button {
     margin-bottom: 1rem;
     padding: 0.25rem;
     border-radius: 3px;
     border: solid 2px var(--color-divider);
     background: none;
     font-family: inherit;
+    font-size: 0.85rem;
     color: var(--color-text);
   }
 
-  input[type=submit] {
+  input[type=submit], .button {
     cursor: pointer;
     padding: 0.25rem 1rem;
   }
 
-  input:focus, select:focus, textarea:focus {
+  input:focus, select:focus, textarea:focus, .button:focus {
     border-color: var(--color-accent);
     outline: none;
   }
 
-  input[type=submit]:hover {
+  input[type=submit]:hover, .button:hover {
     border-color: var(--color-accent);
   }
 
