@@ -1,6 +1,6 @@
 from flask import url_for
 from application import db
-from application.models import Book
+from application.models import Book, Review
 from tests import TestBase
 
 
@@ -23,3 +23,19 @@ class TestBooks(TestBase):
     response = self.client.get(url_for('books'))
     assert b'A Cool Book' in response.data
     assert b'A Neat Author' in response.data
+
+  # (delete-book route, POST) deleting a book works
+  def test_delete_book(self):
+    book_to_delete = Book(title='Test Book', author='Test Author')
+    db.session.add(book_to_delete)
+    db.session.commit()
+
+    # associated reviews should also be deleted    
+    review_to_delete = Review(book_id=book_to_delete.id, headline='', rating=5, body='')
+    db.session.add(review_to_delete)
+    db.session.commit()
+
+    # delete book
+    self.client.post(url_for('delete_book', id=book_to_delete.id))
+    assert Book.query.get(book_to_delete.id) is None
+    assert Review.query.get(review_to_delete.id) is None

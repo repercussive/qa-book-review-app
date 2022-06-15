@@ -48,6 +48,20 @@ def add_book():
   return render_template('add-book.html', form=form)
 
 
+@app.route('/delete-book/<int:id>', methods=['GET', 'POST'])
+def delete_book(id):
+  book = Book.query.get(id)
+
+  if request.method == 'POST':
+    reviews = Review.query.filter_by(book_id=book.id).all()
+    for review in reviews: db.session.delete(review)
+    db.session.delete(book)
+    db.session.commit()
+    return redirect(url_for('books'))
+
+  return render_template('delete-book.html', book=book)
+
+
 @app.route('/add-review', methods=['GET', 'POST'])
 def add_review():
   form = ReviewForm()
