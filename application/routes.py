@@ -9,6 +9,7 @@ def home():
   recent_reviews = Review.query.limit(6).all()
   return render_template('index.html', reviews=recent_reviews)
 
+
 @app.route('/review/<int:id>')
 def review(id):
   review = Review.query.get(id)
@@ -26,10 +27,10 @@ def add_book():
     return redirect(url_for('add_review', book_id=new_book.id))
 
   return render_template('add-book.html', form=form)
- 
+
 
 @app.route('/add-review', methods=['GET', 'POST'])
-def add_review(): 
+def add_review():
   form = ReviewForm()
   form.submit.label.text = 'Add'
   form.book.choices = get_book_choices()
@@ -48,6 +49,7 @@ def add_review():
   form.book.data = 0 if not request.args else (request.args['book_id'] or 0)
   return render_template('review-form.html', form=form, form_action='/add-review')
 
+
 @app.route('/edit-review/<int:id>', methods=['GET', 'POST'])
 def edit_review(id):
   review = Review.query.get(id)
@@ -65,11 +67,13 @@ def edit_review(id):
 
   return render_template('review-form.html', form=form, form_action=f'/edit-review/{id}')
 
+
 @app.route('/delete-review/<int:id>', methods=['POST'])
 def delete_review(id):
   db.session.delete(Review.query.get(id))
   db.session.commit()
   return redirect(url_for('home'))
+
 
 def get_book_choices():
   return [(book.id, book.title) for book in Book.query.all()]
