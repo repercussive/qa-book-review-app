@@ -74,7 +74,8 @@ def add_review():
         book_id=form.book.data,
         rating=form.rating.data,
         headline=form.headline.data,
-        body=form.body.data
+        body=form.body.data,
+        reviewer_name=form.reviewer_name.data
     )
     db.session.add(new_review)
     db.session.commit()
@@ -97,6 +98,7 @@ def edit_review(id):
     review.rating = form.rating.data
     review.headline = form.headline.data
     review.body = form.body.data
+    review.reviewer_name = form.reviewer_name.data
     db.session.commit()
     return redirect(url_for('review', id=review.id))
 

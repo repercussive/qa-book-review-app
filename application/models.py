@@ -13,4 +13,5 @@ class Review(db.Model):
   rating = db.Column(db.Integer)
   headline = db.Column(db.String(100))
   body = db.Column(db.String(8000))
+  reviewer_name = db.Column(db.String(40))
   book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)

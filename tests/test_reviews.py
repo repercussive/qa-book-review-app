@@ -18,7 +18,8 @@ class TestReviews(TestBase):
             'book': 1,
             'headline': 'Test Headline',
             'rating': 5,
-            'body': 'Test review body'
+            'body': 'Test review body',
+            'reviewer_name': 'Bob'
         }
     )
     test_review = Review.query.first()
@@ -26,6 +27,7 @@ class TestReviews(TestBase):
     assert test_review.headline == 'Test Headline'
     assert test_review.rating == 5
     assert test_review.body == 'Test review body'
+    assert test_review.reviewer_name == 'Bob'
 
   def test_edit_review(self):
     db.session.add(Book(title='Test Book', author='Test Author'))

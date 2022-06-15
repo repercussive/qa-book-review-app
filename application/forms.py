@@ -13,5 +13,6 @@ class ReviewForm(FlaskForm):
   rating = IntegerField('Rating:', default=5, validators=[NumberRange(min=1, max=5)])
   headline = StringField('Review headline:', validators=[DataRequired(), Length(max=100)])
   body = TextAreaField('Write your review here:', validators=[DataRequired(), Length(max=8000)])
+  reviewer_name = StringField('Your name (optional)', validators=[Length(max=40)])
   submit = SubmitField('Add')
   
