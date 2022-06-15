@@ -52,3 +52,22 @@ class TestBooks(TestBase):
     self.client.post(url_for('delete_book', id=book_to_delete.id))
     assert Book.query.get(book_to_delete.id) is None
     assert Review.query.get(review_to_delete.id) is None
+
+  # (add-book route, GET) add-book route returns a valid response
+  def test_add_book_route_get(self):
+    response = self.client.get(url_for('add_book'))
+    assert response.status_code == 200
+
+  # (edit-book route, GET) edit-book route returns a valid response
+  def test_edit_book_route_get(self):
+    db.session.add(Book(title='Test Book', author='Test Author'))
+    db.session.commit()
+    response = self.client.get(url_for('edit_book', id=1))
+    assert response.status_code == 200
+
+  # (delete-book route, GET) delete-book route returns a valid response
+  def test_delete_book_route_get(self):
+    db.session.add(Book(title='Test Book', author='Test Author'))
+    db.session.commit()
+    response = self.client.get(url_for('delete_book', id=1))
+    assert response.status_code == 200 
