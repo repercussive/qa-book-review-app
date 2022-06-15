@@ -1,12 +1,19 @@
 {% extends "_base.html" %}
 {% block body %}
-  <h1>New book</h1>
-  <form action="/add-book" method="post">
+  <h2 style="margin-bottom: 1rem;">New book</h2>
+  <form action="/add-book" method="post" class="book-form">
     {{ form.hidden_tag() }}
     {{ form.title.label }} {{ form.title }}
-    <br />
     {{ form.author.label }} {{ form.author }}
-    <br />
     {{ form.submit }}
   </form>
+{% endblock %}
+
+{% block style %}
+<style>
+  form.book-form input {
+    display: block;
+    width: 100%;
+  }
+</style>
 {% endblock %}
