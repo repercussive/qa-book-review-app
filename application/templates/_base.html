@@ -48,6 +48,12 @@
   a {
     color: var(--color-accent);
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  a:not(.button):hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   input, select, textarea, .button {
