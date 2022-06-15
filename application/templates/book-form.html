@@ -1,7 +1,9 @@
 {% extends "_base.html" %}
 {% block body %}
-  <h2 style="margin-bottom: 1rem;">New book</h2>
-  <form action="/add-book" method="post" class="book-form">
+  <h2 style="margin-bottom: 1rem;">
+    {{'New book' if 'add' in form_action else 'Edit book'}}
+  </h2>
+  <form action="{{form_action}}" method="post" class="book-form">
     {{ form.hidden_tag() }}
     {{ form.title.label }} {{ form.title }}
     {{ form.author.label }} {{ form.author }}

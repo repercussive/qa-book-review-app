@@ -5,7 +5,7 @@ from tests import TestBase
 
 
 class TestBooks(TestBase):
-  # (add-book route, POST) adding a book via POST works
+  # [create] (add-book route, POST) adding a book via POST works
   def test_add_book(self):
     self.client.post(
         url_for('add_book'),
@@ -15,7 +15,7 @@ class TestBooks(TestBase):
     assert test_book.title == 'Test Book'
     assert test_book.author == 'Test Author'
 
-  # (books route, GET) receiving books data via GET works
+  # [read] (books route, GET) receiving books data via GET works
   def test_get_books(self):
     db.session.add(Book(title='A Cool Book', author='A Cool Author'))
     db.session.add(Book(title='A Neat Book', author='A Neat Author'))
@@ -24,13 +24,26 @@ class TestBooks(TestBase):
     assert b'A Cool Book' in response.data
     assert b'A Neat Author' in response.data
 
-  # (delete-book route, POST) deleting a book works
+  # [update] (edit-book route, POST) editing a book works
+  def test_edit_book(self):
+    book_to_edit = Book(title='Test Book', author='Test Author')
+    db.session.add(book_to_edit)
+    db.session.commit()
+
+    # edit book
+    self.client.post(
+      url_for('edit_book', id=book_to_edit.id),
+      data={ 'title': 'Updated Title' }
+    )
+    assert Book.query.get(book_to_edit.id).title == 'Updated Title'
+
+  # [delete] (delete-book route, POST) deleting a book works
   def test_delete_book(self):
     book_to_delete = Book(title='Test Book', author='Test Author')
     db.session.add(book_to_delete)
     db.session.commit()
 
-    # associated reviews should also be deleted    
+    # associated reviews should also be deleted
     review_to_delete = Review(book_id=book_to_delete.id, headline='', rating=5, body='')
     db.session.add(review_to_delete)
     db.session.commit()

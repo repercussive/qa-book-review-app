@@ -1,5 +1,5 @@
 from application import app, db
-from application.forms import NewBookForm, ReviewForm
+from application.forms import BookForm, ReviewForm
 from application.models import Book, Review
 from sqlalchemy import desc
 from flask import render_template, redirect, url_for, request
@@ -38,7 +38,8 @@ def review(id):
 
 @app.route('/add-book', methods=['GET', 'POST'])
 def add_book():
-  form = NewBookForm()
+  form = BookForm()
+  form.submit.label.text = 'Add'
 
   if form.validate_on_submit():
     new_book = Book(title=form.title.data, author=form.author.data)
@@ -46,7 +47,24 @@ def add_book():
     db.session.commit()
     return redirect(url_for('add_review', book_id=new_book.id))
 
-  return render_template('add-book.html', form=form)
+  return render_template('book-form.html', form=form, form_action='/add-book')
+
+
+@app.route('/edit-book/<int:id>', methods=['GET', 'POST'])
+def edit_book(id):
+  book = Book.query.get(id)
+  if not book: return redirect(url_for('home'))
+
+  form = BookForm(obj=book)
+  form.submit.label.text = 'Save changes'
+
+  if form.validate_on_submit():
+    book.title = form.title.data
+    book.author = form.author.data
+    db.session.commit()
+    return redirect(url_for('books'))
+
+  return render_template('book-form.html', form=form, form_action=f'/edit-book/{id}')
 
 
 @app.route('/delete-book/<int:id>', methods=['GET', 'POST'])
@@ -89,6 +107,8 @@ def add_review():
 @app.route('/edit-review/<int:id>', methods=['GET', 'POST'])
 def edit_review(id):
   review = Review.query.get(id)
+  if not review: return redirect(url_for('home'))
+
   form = ReviewForm(obj=review)
   form.submit.label.text = 'Save changes'
   form.book.choices = [(review.book_id, review.book.title)]

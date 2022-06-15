@@ -2,10 +2,10 @@ from flask_wtf import FlaskForm
 from wtforms import SelectField, StringField, IntegerField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Length, NumberRange
 
-class NewBookForm(FlaskForm):
+class BookForm(FlaskForm):
   title = StringField('Title:', validators=[DataRequired(), Length(max=60)])
   author = StringField('Author:', validators=[DataRequired(), Length(max=40)])
-  submit = SubmitField('Add')
+  submit = SubmitField('[set dynamically]')
 
 
 class ReviewForm(FlaskForm):
@@ -14,5 +14,5 @@ class ReviewForm(FlaskForm):
   headline = StringField('Review headline:', validators=[DataRequired(), Length(max=100)])
   body = TextAreaField('Write your review here:', validators=[DataRequired(), Length(max=8000)])
   reviewer_name = StringField('Your name (optional)', validators=[Length(max=40)])
-  submit = SubmitField('Add')
+  submit = SubmitField('[set dynamically]')
   
