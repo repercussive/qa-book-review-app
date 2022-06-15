@@ -36,6 +36,13 @@ def review(id):
   return render_template('review.html', review=review)
 
 
+@app.route('/reviews/<int:book_id>')
+def reviews(book_id):
+  book = Book.query.get(book_id)
+  reviews = Review.query.filter_by(book_id=book_id).all()
+  return render_template('review-list.html', book=book, reviews=reviews)
+
+
 @app.route('/add-book', methods=['GET', 'POST'])
 def add_book():
   form = BookForm()

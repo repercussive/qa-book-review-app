@@ -18,7 +18,7 @@
 
   <div class="actions">
     {% if book_data.num_reviews > 0 %}
-    <a>See reviews</a>
+    <a href="/reviews/{{book_id}}">See reviews</a>
     {% else %}
     <p class="faded">No reviews</p>
     {% endif %}

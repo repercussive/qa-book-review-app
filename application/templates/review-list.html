@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{% block body %}
+  <h2 style="margin-bottom: 1rem;">
+    <span style="font-weight: normal;">Reviews for </span>
+    <b>{{book.title}} by {{book.author}}</b>
+  </h2>
+  {% for review in reviews %}
+  <div class="review-list-item">
+    <div>
+      {% include "/components/star-rating.html" %}
+      <div class="divider"></div>
+      <a href="/review/{{review.id}}">Read review</a>
+    </div>
+    <p class="headline">
+      "{{review.headline}}"
+      <span class="faded">
+        {{(' - ' + review.reviewer_name) if review.reviewer_name else ''}}
+      </span>
+    </p>
+  </div>
+  {% endfor %}
+{% endblock %}
+
+{% block style %}
+<style>
+  .review-list-item {
+    margin-bottom: 2rem;
+  }
+
+  .review-list-item > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .review-list-item .divider {
+    flex: 1;
+    border-bottom: solid 2px var(--color-divider);
+  }
+
+  .review-list-item .headline {
+    font-size: 1.25rem;
+    font-style: italic;
+  }
+</style>
+{% endblock %}
