@@ -78,7 +78,7 @@ def add_review():
     )
     db.session.add(new_review)
     db.session.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('review', id=new_review.id))
 
   book_id = None if not request.args else (request.args['book_id'] or 0)
   form.book.data = book_id or 0
@@ -98,7 +98,7 @@ def edit_review(id):
     review.headline = form.headline.data
     review.body = form.body.data
     db.session.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('review', id=review.id))
 
   return render_template('review-form.html', form=form, form_action=f'/edit-review/{id}')
 
