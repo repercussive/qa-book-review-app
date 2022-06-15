@@ -27,6 +27,25 @@ class TestReviews(TestBase):
     assert test_review.rating == 5
     assert test_review.body == 'Test review body'
 
+  def test_edit_review(self):
+    db.session.add(Book(title='Test Book', author='Test Author'))
+    review_to_edit = Review(book_id=1, headline='Test Headline', rating=5, body='Test review body')
+    db.session.add(review_to_edit)
+    db.session.commit()
+
+    # edit review headline
+    self.client.post(
+        url_for('edit_review', id=review_to_edit.id),
+        data={
+            'book': 1,
+            'headline': 'Updated Headline',
+            'rating': 5,
+            'body': 'Test review body'
+        }
+    )
+    test_review = Review.query.get(review_to_edit.id)
+    assert test_review.headline == 'Updated Headline'
+
   # (delete-review route, POST) deleting a review via POST works
   def test_delete_review(self):
     db.session.add(Book(title='Test Book', author='Test Author'))

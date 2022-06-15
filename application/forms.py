@@ -7,7 +7,7 @@ class NewBookForm(FlaskForm):
   author = StringField('Author:', validators=[DataRequired(), Length(max=40)])
   submit = SubmitField('Add')
 
-class NewReviewForm(FlaskForm):
+class ReviewForm(FlaskForm):
   book = SelectField('Book:', choices=[], validators=[DataRequired()])
   rating = IntegerField('Rating:', default=5, validators=[NumberRange(min=1, max=5)])
   headline = StringField('Review headline:', validators=[DataRequired(), Length(max=100)])

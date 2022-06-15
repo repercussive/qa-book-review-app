@@ -1,12 +1,20 @@
 {% extends "_base.html" %}
 {% block body %}
-  <h2 style="margin-bottom: 1rem;">Create a new review</h2>
-  <form action="/add-review" method="post" class="review-form">
+  <h2 style="margin-bottom: 1rem;">
+    {{'Create a new' if 'add' in form_action else 'Edit'}} review
+  </h2>
+  <form 
+    action="{{form_action}}" 
+    method="post" 
+    class="review-form"
+  >
     {{ form.hidden_tag() }}
     {{ form.book.label }} {{ form.book }}
+    {% if 'add' in form_action %}
     <p style="margin-bottom: 1rem">
       Don't see your book listed? <a href="/add-book?toreview=true">Add it here</a>.
     </p>
+    {% endif %}
     {{ form.rating.label }}<div><span id="star" class="accent">★</span>{{ form.rating }}</div>
     {{ form.headline.label }} {{ form.headline }}
     {{ form.body.label }} {{ form.body }}
