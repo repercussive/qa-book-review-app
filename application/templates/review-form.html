@@ -10,7 +10,7 @@
   >
     {{ form.hidden_tag() }}
     {{ form.book.label }} {{ form.book }}
-    {% if 'add' in form_action %}
+    {% if 'add' in form_action and book_id is none %}
     <p style="margin-bottom: 1rem">
       Don't see your book listed? <a href="/add-book?toreview=true">Add it here</a>.
     </p>

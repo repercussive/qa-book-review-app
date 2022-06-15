@@ -80,8 +80,9 @@ def add_review():
     db.session.commit()
     return redirect(url_for('home'))
 
-  form.book.data = 0 if not request.args else (request.args['book_id'] or 0)
-  return render_template('review-form.html', form=form, form_action='/add-review')
+  book_id = None if not request.args else (request.args['book_id'] or 0)
+  form.book.data = book_id or 0
+  return render_template('review-form.html', form=form, form_action='/add-review', book_id=book_id)
 
 
 @app.route('/edit-review/<int:id>', methods=['GET', 'POST'])
