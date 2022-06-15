@@ -9,6 +9,9 @@
     {{review.headline}}
   </h3>
   <p class="review-body">{{review.body}}</p>
+  <form action="../delete-review/{{review.id}}" method="post">
+    <input value="Delete review" type="submit" />
+  </form>
 </div>
 {% endblock %}
 

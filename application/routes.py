@@ -48,3 +48,10 @@ def add_review():
     return redirect(url_for('home'))
 
   return render_template('add-review.html', form=form)
+
+
+@app.route('/delete-review/<int:id>', methods=['POST'])
+def delete_review(id):
+  db.session.delete(Review.query.get(id))
+  db.session.commit()
+  return redirect(url_for('home'))

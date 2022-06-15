@@ -11,7 +11,7 @@ class TestReviews(TestBase):
     db.session.add(Book(title='Test Book', author='Test Author'))
     db.session.commit()
 
-    # adding book
+    # add review
     self.client.post(
         url_for('add_review'),
         data={
@@ -26,3 +26,16 @@ class TestReviews(TestBase):
     assert test_review.headline == 'Test Headline'
     assert test_review.rating == 5
     assert test_review.body == 'Test review body'
+
+  # (delete-review route, POST) deleting a review via POST works
+  def test_delete_review(self):
+    db.session.add(Book(title='Test Book', author='Test Author'))
+    review_to_delete = Review(book_id=1, headline='Test Headline', rating=5, body='Test review body')
+    db.session.add(review_to_delete)
+    db.session.commit()
+
+    # delete review
+    self.client.post(url_for('delete_review', id=review_to_delete.id))
+
+    # it's gone
+    assert Review.query.get(review_to_delete.id) is None
