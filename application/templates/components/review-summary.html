@@ -4,11 +4,14 @@
 
   <h3>
     <span>{{review.book.title}}</span>
-    <span style="font-weight: normal;">by {{review.book.author}}</span>
+    <span style="font-weight: normal;" class="faded">by {{review.book.author}}</span>
   </h3>
 
   <p style="margin-bottom: 0.5rem; font-style: italic;">
     {{review.headline}}
+    <span class="faded">
+      {{(' - ' + review.reviewer_name) if review.reviewer_name else ''}}
+    </span>
   </p>
 
   <div style="display: flex; align-items: center; margin-top: auto;">
