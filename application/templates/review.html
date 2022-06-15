@@ -3,12 +3,20 @@
 {% include "/components/star-rating.html" %}
 <div class="review-wrapper">
   <h2>
-    {{review.book.title}} by {{review.book.author}}
+    {{review.book.title}}
+    <span style="font-weight: normal;" class="faded">
+      by {{review.book.author}}
+    </span>
   </h2>
-  <h3>
-    {{review.headline}}
-  </h3>
-  <p class="review-body">{{review.body}}</p>
+  {% if review.reviewer_name %}
+  <p class="reviewer-name faded">Review written by {{review.reviewer_name}}</p>
+  {% endif %}
+  <div class="main-content-wrapper">
+    <h3 class="headline">
+      {{review.headline}}
+    </h3>
+    <p class="review-body">{{review.body}}</p>
+  </div>
   <div class="actions">
     <a href="../edit-review/{{review.id}}" class="button">
       Edit review
@@ -24,18 +32,30 @@
 <style>
   .review-wrapper h2 {
     margin-top: 0.5rem; 
-    margin-bottom: 0.25rem;
-  }
-
-  .review-wrapper h3 {
-    font-style: italic; 
-    font-weight: normal;
     margin-bottom: 1.5rem;
   }
 
+  .review-wrapper .headline {
+    font-style: italic; 
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .main-content-wrapper {
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    padding: 1rem;
+    border: solid 2px #767676;
+    background-color: #2b2b2b;
+  }
+
+  .reviewer-name {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+  }
+
   .review-body {
-    padding: 1rem 0;
-    border-top: solid 2px var(--color-divider);
+    opacity: 0.8;
   }
 
   .review-wrapper .actions {
