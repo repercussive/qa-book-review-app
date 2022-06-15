@@ -1,4 +1,5 @@
 from flask import url_for
+from application import db
 from application.models import Book
 from tests import TestBase
 
@@ -13,3 +14,12 @@ class TestBooks(TestBase):
     test_book = Book.query.first()
     assert test_book.title == 'Test Book'
     assert test_book.author == 'Test Author'
+
+  # (books route, GET) receiving books data via GET works
+  def test_get_books(self):
+    db.session.add(Book(title='A Cool Book', author='A Cool Author'))
+    db.session.add(Book(title='A Neat Book', author='A Neat Author'))
+    db.session.commit()
+    response = self.client.get(url_for('books'))
+    assert b'A Cool Book' in response.data
+    assert b'A Neat Author' in response.data

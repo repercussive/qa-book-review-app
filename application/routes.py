@@ -10,6 +10,12 @@ def home():
   return render_template('index.html', reviews=recent_reviews)
 
 
+@app.route('/books')
+def books():
+  all_books = Book.query.all()
+  return render_template('books.html', books=all_books)
+
+
 @app.route('/review/<int:id>')
 def review(id):
   review = Review.query.get(id)
