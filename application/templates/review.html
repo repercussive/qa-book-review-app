@@ -9,12 +9,14 @@
     {{review.headline}}
   </h3>
   <p class="review-body">{{review.body}}</p>
-  <form action="../delete-review/{{review.id}}" method="post">
-    <input value="Delete review" type="submit" />
-  </form>
-  <a href="../edit-review/{{review.id}}">
-    Edit review
-  </a>
+  <div class="actions">
+    <a href="../edit-review/{{review.id}}" class="button">
+      Edit review
+    </a>
+    <form action="../delete-review/{{review.id}}" method="post">
+      <input value="Delete review" type="submit" />
+    </form>
+  </div>
 </div>
 {% endblock %}
 
@@ -34,6 +36,11 @@
   .review-body {
     padding: 1rem 0;
     border-top: solid 2px var(--color-divider);
+  }
+
+  .review-wrapper .actions {
+    display: flex;
+    gap: 0.5rem;
   }
 </style>
 {% endblock %}
