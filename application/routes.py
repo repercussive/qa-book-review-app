@@ -1,18 +1,19 @@
 from application import app, db
 from application.forms import NewBookForm, ReviewForm
 from application.models import Book, Review
+from sqlalchemy import desc
 from flask import render_template, redirect, url_for, request
 
 
 @app.route('/')
 def home():
-  recent_reviews = Review.query.limit(6).all()
+  recent_reviews = Review.query.order_by(desc(Review.id)).limit(6).all()
   return render_template('index.html', reviews=recent_reviews)
 
 
 @app.route('/books')
 def books():
-  all_books = Book.query.all()
+  all_books = Book.query.order_by(desc(Book.id)).all()
   books_data = {}
 
   for book in all_books:
