@@ -19,7 +19,7 @@ def books():
   for book in all_books:
     ratings = [review.rating for review in Review.query.filter_by(book_id=book.id)]
     num_reviews = len(ratings)
-    avg_rating = 0 if num_reviews == 0 else round(sum(ratings) / num_reviews, 2)
+    avg_rating = 0 if num_reviews == 0 else round(sum(ratings) / num_reviews, 1)
     books_data[book.id] = {
       'title': book.title,
       'author': book.author,
