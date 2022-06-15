@@ -1,0 +1,7 @@
+{% extends "_base.html" %}
+{% block body %}
+  <h2 style="margin-bottom: 1rem;">Books</h2>
+  {% for book in books %}
+  {% include "/components/book-summary.html" %}
+  {% endfor %}
+{% endblock %}

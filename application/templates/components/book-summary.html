@@ -1,0 +1,35 @@
+<div class="book-summary-wrapper">
+  <h3>
+    <span>{{book.title}}</span>
+    <span style="font-weight: normal; opacity: 0.6;">by {{book.author}}</span>
+  </h3>
+
+  <p style="margin-bottom: 1rem;">
+    [rating info]
+  </p>
+
+  <div class="actions">
+    <a>See reviews</a>
+    <div style="margin-left: auto;"></div>
+    <a href="/add-review?book_id={{book.id}}">Review</a>
+    <a>Edit</a>
+    <a>Delete</a>
+  </div>
+</div>
+
+<style>
+  .book-summary-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: solid 2px #868686;
+    background-color: #3b3b3b;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .book-summary-wrapper .actions {
+    display: flex;
+    gap: 1rem;
+  }
+</style>
