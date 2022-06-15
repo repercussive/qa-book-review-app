@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
 {% block body %}
   <h2 style="margin-bottom: 1rem;">Books</h2>
-  {% for book in books %}
+  {% for book_id, book_data in books_data.items() %}
   {% include "/components/book-summary.html" %}
   {% endfor %}
 {% endblock %}

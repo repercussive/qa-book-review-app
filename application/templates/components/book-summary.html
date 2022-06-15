@@ -1,17 +1,29 @@
 <div class="book-summary-wrapper">
   <h3>
-    <span>{{book.title}}</span>
-    <span style="font-weight: normal; opacity: 0.6;">by {{book.author}}</span>
+    <span>{{book_data.title}}</span>
+    <span style="font-weight: normal" class="faded">by {{book_data.author}}</span>
   </h3>
 
   <p style="margin-bottom: 1rem;">
-    [rating info]
+    {% if book_data.num_reviews > 0 %}
+    <b>{{book_data.avg_rating}}</b>
+    <span class="faded">
+      / 5 average rating (based on {{book_data.num_reviews}} 
+      review{{'' if book_data.num_reviews == 1 else 's'}})
+    </span>
+    {% else %}
+    <span class="faded">Unrated</span>
+    {% endif %}
   </p>
 
   <div class="actions">
+    {% if book_data.num_reviews > 0 %}
     <a>See reviews</a>
+    {% else %}
+    <p class="faded">No reviews</p>
+    {% endif %}
     <div style="margin-left: auto;"></div>
-    <a href="/add-review?book_id={{book.id}}">Review</a>
+    <a href="/add-review?book_id={{book_id}}">Add review</a>
     <a>Edit</a>
     <a>Delete</a>
   </div>
@@ -28,8 +40,13 @@
     margin-bottom: 1rem;
   }
 
+  .book-summary-wrapper h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
   .book-summary-wrapper .actions {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 </style>

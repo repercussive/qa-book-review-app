@@ -13,7 +13,20 @@ def home():
 @app.route('/books')
 def books():
   all_books = Book.query.all()
-  return render_template('books.html', books=all_books)
+  books_data = {}
+
+  for book in all_books:
+    ratings = [review.rating for review in Review.query.filter_by(book_id=book.id)]
+    num_reviews = len(ratings)
+    avg_rating = 0 if num_reviews == 0 else round(sum(ratings) / num_reviews, 2)
+    books_data[book.id] = {
+      'title': book.title,
+      'author': book.author,
+      'avg_rating': avg_rating,
+      'num_reviews': num_reviews
+    }
+    
+  return render_template('books.html', books_data=books_data)
 
 
 @app.route('/review/<int:id>')
