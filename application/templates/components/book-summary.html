@@ -4,6 +4,13 @@
     <span style="font-weight: normal" class="faded">by {{book_data.author}}</span>
   </h3>
 
+  {% if book_data.num_genres > 0 %}
+  <p style="margin-bottom: 0.25rem;">
+    <b>Genre{{'' if book_data.num_genres == 1 else 's'}}:</b>
+    <span class="faded">{{', '.join(book_data.genres)}}</span>
+  </p>
+  {% endif %}
+
   <p style="margin-bottom: 1rem;">
     {% if book_data.num_reviews > 0 %}
     <b>{{book_data.avg_rating}}</b>
@@ -41,7 +48,7 @@
   }
 
   .book-summary-wrapper h3 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-bottom: 0.25rem;
   }
 

@@ -27,8 +27,10 @@ def books():
     books_data[book.id] = {
       'title': book.title,
       'author': book.author,
+      'genres': [genre.name for genre in (book.genres or [])],
       'avg_rating': avg_rating,
-      'num_reviews': num_reviews
+      'num_reviews': num_reviews,
+      'num_genres': len(book.genres)
     }
     
   return render_template('books.html', books_data=books_data)
