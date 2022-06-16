@@ -27,19 +27,7 @@ def books():
     selected_genre = Genre.query.get(selected_genre_id)
     books = filter(lambda book: selected_genre in book.genres, books)
 
-  books_data = {}
-  for book in books:
-    ratings = [review.rating for review in Review.query.filter_by(book_id=book.id)]
-    num_reviews = len(ratings)
-    avg_rating = 0 if num_reviews == 0 else round(sum(ratings) / num_reviews, 1)
-    books_data[book.id] = {
-      'title': book.title,
-      'author': book.author,
-      'genres': [genre.name for genre in (book.genres or [])],
-      'avg_rating': avg_rating,
-      'num_reviews': num_reviews,
-      'num_genres': len(book.genres)
-    }
+  books_data = generate_books_data(books)
     
   return render_template(
     'books.html',
@@ -175,3 +163,19 @@ def get_genre_choices():
 
 def get_genres_by_ids(genre_ids: list[int]):
   return [Genre.query.get(genre_id) for genre_id in genre_ids]
+
+def generate_books_data(books):
+  books_data = {}
+  for book in books:
+    ratings = [review.rating for review in Review.query.filter_by(book_id=book.id)]
+    num_reviews = len(ratings)
+    avg_rating = 0 if num_reviews == 0 else round(sum(ratings) / num_reviews, 1)
+    books_data[book.id] = {
+      'title': book.title,
+      'author': book.author,
+      'genres': [genre.name for genre in (book.genres or [])],
+      'avg_rating': avg_rating,
+      'num_reviews': num_reviews,
+      'num_genres': len(book.genres)
+    }
+  return books_data
