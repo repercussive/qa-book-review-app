@@ -6,3 +6,4 @@ pymysql
 pytest
 pytest-cov
 flask-testing
+gunicorn
