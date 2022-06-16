@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Install dependencies') {
+    stage('Run unit tests') {
       steps {
         sh '''#!/bin/bash
           sudo apt update
@@ -9,12 +9,8 @@ pipeline {
           python3 -m venv venv
           source venv/bin/activate
           pip3 install -r requirements.txt
+          python3 -m pytest --cov=application --cov-report xml
         '''
-      }
-    }
-    stage('Run unit tests') {
-      steps {
-        sh 'python3 -m pytest --cov=application --cov-report xml'
       }
     }
     stage('Copy files') {
