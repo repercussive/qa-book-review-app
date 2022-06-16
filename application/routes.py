@@ -4,6 +4,10 @@ from application.models import Book, Review
 from sqlalchemy import desc
 from flask import render_template, redirect, url_for, request
 
+@app.before_first_request
+def create_tables():
+  db.create_all()
+
 
 @app.route('/')
 def home():

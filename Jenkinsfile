@@ -18,7 +18,6 @@ pipeline {
         sh '''#!/bin/bash
           scp -r application jenkins@app-server:/home/jenkins/
           scp app.py jenkins@app-server:/home/jenkins
-          scp create.py jenkins@app-server:/home/jenkins
           scp requirements.txt jenkins@app-server:/home/jenkins
         '''
       }

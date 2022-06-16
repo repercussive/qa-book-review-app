@@ -14,6 +14,4 @@ echo "--- Killing existing processes ---"
 kill $(cat ./gunicornpidfile)
 
 echo "--- Running app ---"
-echo $(pwd)
-python3 create.py
 python3 -m gunicorn -D --workers 4 --bind 0.0.0.0:5000 app:app -p gunicornpidfile
