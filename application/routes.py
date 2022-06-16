@@ -1,6 +1,6 @@
 from application import app, db
 from application.forms import BookForm, ReviewForm
-from application.models import Book, Review
+from application.models import Book, Genre, Review
 from sqlalchemy import desc
 from flask import render_template, redirect, url_for, request
 
@@ -50,10 +50,12 @@ def reviews(book_id):
 @app.route('/add-book', methods=['GET', 'POST'])
 def add_book():
   form = BookForm()
+  form.genres.choices = get_genre_choices()
   form.submit.label.text = 'Add'
 
   if form.validate_on_submit():
     new_book = Book(title=form.title.data, author=form.author.data)
+    new_book.genres = get_genres_by_ids(form.genres.data or [])
     db.session.add(new_book)
     db.session.commit()
     return redirect(url_for('add_review', book_id=new_book.id))
@@ -67,14 +69,17 @@ def edit_book(id):
   if not book: return redirect(url_for('home'))
 
   form = BookForm(obj=book)
+  form.genres.choices = get_genre_choices()
   form.submit.label.text = 'Save changes'
 
   if form.validate_on_submit():
     book.title = form.title.data
     book.author = form.author.data
+    book.genres = get_genres_by_ids(form.genres.data or [])
     db.session.commit()
     return redirect(url_for('books'))
 
+  form.genres.data = [genre.id for genre in book.genres]
   return render_template('book-form.html', form=form, form_action=f'/edit-book/{id}')
 
 
@@ -143,5 +148,13 @@ def delete_review(id):
   return redirect(url_for('home'))
 
 
+# utils
+
 def get_book_choices():
   return [(book.id, book.title) for book in Book.query.all()]
+
+def get_genre_choices():
+  return  [(genre.id, genre.name) for genre in Genre.query.all()]
+
+def get_genres_by_ids(genre_ids: list[int]):
+  return [Genre.query.get(genre_id) for genre_id in genre_ids]
