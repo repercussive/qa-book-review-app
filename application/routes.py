@@ -161,7 +161,7 @@ def get_book_choices():
 def get_genre_choices():
   return  [(genre.id, genre.name) for genre in Genre.query.all()]
 
-def get_genres_by_ids(genre_ids: list[int]):
+def get_genres_by_ids(genre_ids):
   return [Genre.query.get(genre_id) for genre_id in genre_ids]
 
 def generate_books_data(books):
