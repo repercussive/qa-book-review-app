@@ -4,9 +4,30 @@
     <h2>Books</h2>
     <a href="/add-book" class="button">Add new</a>
   </div>
+  <select id="genre-filter">
+    <option value="all">all genres</option>
+    {% for genre in genres %}
+    <option 
+      value="{{genre.id}}"
+      {{'selected' if str(genre.id) == selected_genre_id else ''}}
+    >
+      {{genre.name}}
+    </option>
+    {% endfor %}
+  </select>
   {% for book_id, book_data in books_data.items() %}
   {% include "/components/book-summary.html" %}
   {% endfor %}
+{% endblock %}
+
+{% block script %}
+<script>
+  document.getElementById('genre-filter')
+    .addEventListener('change', (e) => {
+      query = e.target.value === 'all' ? '' : `?genre_id=${e.target.value}`
+      window.location.replace(`../books${query}`)
+    })
+</script>
 {% endblock %}
 
 {% block style %}

@@ -17,10 +17,14 @@ def home():
 
 @app.route('/books')
 def books():
-  all_books = Book.query.order_by(desc(Book.id)).all()
-  books_data = {}
+  books = Book.query.order_by(desc(Book.id)).all()
+  selected_genre_id = request.args['genre_id'] if request.args else None
+  if selected_genre_id:
+    selected_genre = Genre.query.get(selected_genre_id)
+    books = filter(lambda book: selected_genre in book.genres, books)
 
-  for book in all_books:
+  books_data = {}
+  for book in books:
     ratings = [review.rating for review in Review.query.filter_by(book_id=book.id)]
     num_reviews = len(ratings)
     avg_rating = 0 if num_reviews == 0 else round(sum(ratings) / num_reviews, 1)
@@ -33,7 +37,13 @@ def books():
       'num_genres': len(book.genres)
     }
     
-  return render_template('books.html', books_data=books_data)
+  return render_template(
+    'books.html',
+    books_data=books_data,
+    genres=Genre.query.all(),
+    selected_genre_id=selected_genre_id,
+    str=str
+  )
 
 
 @app.route('/review/<int:id>')
