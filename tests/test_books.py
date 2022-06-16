@@ -35,6 +35,17 @@ class TestBooks(TestBase):
     assert b'A Cool Book' in response.data
     assert b'A Neat Author' in response.data
 
+  # [read] (books route, GET) filtering books by genre works
+  def test_get_genre_filtered_books(self):
+    test_genre = Genre(name='Test Genre')
+    db.session.add(test_genre)
+    db.session.add(Book(title='Book In Test Genre', author='Test Author', genres=[test_genre]))
+    db.session.add(Book(title='Book Not In Test Genre', author='Test Author'))
+    db.session.commit()
+    response = self.client.get(url_for('books', genre_id=1))
+    assert b'Book In Test Genre' in response.data
+    assert b'Book Not In Test Genre' not in response.data
+
   # [update] (edit-book route, POST) editing a book works
   def test_edit_book(self):
     db.session.add(Book(title='Test Book', author='Test Author'))
