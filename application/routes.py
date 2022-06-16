@@ -21,10 +21,10 @@ def home():
 
 @app.route('/books')
 def books():
-  selected_genre_id = request.args.get('genre_id')
   title_search_value = request.args.get('title')
+  selected_genre_id = request.args.get('genre_id')
   books = Book.query \
-              .filter(not title_search_value or Book.title.ilike(f'%{title_search_value}%')) \
+              .filter((title_search_value is None) or Book.title.ilike(f'%{title_search_value}%')) \
               .order_by(desc(Book.id)) \
               .all()
   if selected_genre_id:
