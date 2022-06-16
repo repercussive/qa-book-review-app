@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Install dependencies') {
       steps {
-        sh '''
+        sh '''#!/bin/bash
           sudo apt update
           sudo apt install python3 python3-pip python3-venv -y
           python3 -m venv venv
@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Copy files') {
       steps {
-        sh '''
+        sh '''#!/bin/bash
           scp -r application jenkins@app-server:/home/jenkins/
           scp app.py jenkins@app-server:/home/jenkins
           scp requirements.txt jenkins@app-server:/home/jenkins
@@ -28,7 +28,9 @@ pipeline {
     }
     stage('Deploy app') {
       steps {
-        sh 'ssh jenkins@app-server < deploy.sh'
+        sh '''#!/bin/bash
+          ssh jenkins@app-server < deploy.sh
+        '''
       }
     }
   }
