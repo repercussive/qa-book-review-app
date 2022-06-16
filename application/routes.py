@@ -17,8 +17,12 @@ def home():
 
 @app.route('/books')
 def books():
-  books = Book.query.order_by(desc(Book.id)).all()
-  selected_genre_id = request.args['genre_id'] if request.args else None
+  selected_genre_id = request.args.get('genre_id')
+  title_search_value = request.args.get('title')
+  books = Book.query \
+              .filter(not title_search_value or Book.title.ilike(f'%{title_search_value}%')) \
+              .order_by(desc(Book.id)) \
+              .all()
   if selected_genre_id:
     selected_genre = Genre.query.get(selected_genre_id)
     books = filter(lambda book: selected_genre in book.genres, books)
@@ -42,6 +46,7 @@ def books():
     books_data=books_data,
     genres=Genre.query.all(),
     selected_genre_id=selected_genre_id,
+    title_search_value=title_search_value,
     str=str
   )
 
@@ -127,7 +132,7 @@ def add_review():
     db.session.commit()
     return redirect(url_for('review', id=new_review.id))
 
-  book_id = None if not request.args else (request.args['book_id'] or 0)
+  book_id = request.args.get('book_id')
   form.book.data = book_id or 0
   return render_template('review-form.html', form=form, form_action='/add-review', book_id=book_id)
 
