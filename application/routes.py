@@ -1,12 +1,16 @@
 from application import app, db
 from application.forms import BookForm, ReviewForm
 from application.models import Book, Genre, Review
+from application.data import genre_names
 from sqlalchemy import desc
 from flask import render_template, redirect, url_for, request
 
 @app.before_first_request
 def create_tables():
   db.create_all()
+  if len(Genre.query.all()) == 0:
+    db.session.add_all([Genre(name=name) for name in genre_names])
+    db.session.commit()
 
 
 @app.route('/')
