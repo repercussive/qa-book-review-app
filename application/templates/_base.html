@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Review App</title>
+  </head>
+  <body>
+    <div class="main-wrapper">
+      {% include "/components/navbar.html" %}
+      {% block body %} {% endblock %}
+    </div>
+  </body>
+</html>
+
+{% block style %} {% endblock %}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+  :root {
+    --color-bg: #1b1b1b;
+    --color-text: #ffffff;
+    --color-accent: #f477ca;
+    --color-divider: #323232;
+  }
+
+  ::selection {
+    color: var(--color-bg);
+    background-color: var(--color-accent);
+  }
+
+  html,
+  body { 
+    margin: 0.25rem;
+    font-size: 16px;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  a:not(.button):hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  input, select, textarea, .button {
+    margin-bottom: 1rem;
+    padding: 0.4rem;
+    border-radius: 3px;
+    border: solid 2px var(--color-divider);
+    background: none;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--color-text);
+  }
+
+  input[type=submit], .button {
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    margin-bottom: 0;
+  }
+
+  input:focus, select:focus, textarea:focus, .button:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+
+  input[type=submit]:hover, .button:hover {
+    border-color: var(--color-accent);
+  }
+
+  label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  option {
+    background-color: var(--color-divider);
+    color: var(--color-text);
+  }
+
+  .main-wrapper {
+    margin: auto;
+    max-width: 50rem;
+  }
+
+  .accent {
+    color: var(--color-accent);
+  }
+
+  .faded {
+    opacity: 0.6;
+  }
+</style>

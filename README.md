@@ -1,3 +1,5 @@
 # QA Python Fundamentals Project
 
-🌱 initial commit README
+🚧 readme under construction 🚧
+
+This is a book review web app with CRUD functionality.

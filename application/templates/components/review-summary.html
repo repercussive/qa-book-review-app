@@ -1,0 +1,32 @@
+<div class="review-summary-wrapper">
+
+  {% include "/components/star-rating.html" %}
+
+  <h3>
+    <span>{{review.book.title}}</span>
+    <span style="font-weight: normal;" class="faded">by {{review.book.author}}</span>
+  </h3>
+
+  <p style="margin: 0.2rem 0 0.5rem; font-style: italic;">
+    "{{review.headline}}"
+    <span class="faded">
+      {{(' - ' + review.reviewer_name) if review.reviewer_name else ''}}
+    </span>
+  </p>
+
+  <div style="display: flex; align-items: center; margin-top: auto;">
+    <div style="border-bottom: solid 2px #4f4f4f; flex: 1;"></div>
+    <a href="/review/{{review.id}}" style="display: block; margin-left: 1rem;">Read review</a>
+  </div>
+</div>
+
+<style>
+  .review-summary-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: solid 2px #868686;
+    background-color: #3b3b3b;
+    border-radius: 4px;
+  }
+</style>

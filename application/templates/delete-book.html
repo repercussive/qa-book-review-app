@@ -1,0 +1,9 @@
+{% extends "_base.html" %}
+{% block body %}
+  <h2 style="margin-bottom: 1rem;">Delete book</h2>
+  <p>Are you sure you want to delete <b>{{book.title}}</b>? Any associated reviews will also be deleted.</p>
+  <br />
+  <form action="/delete-book/{{book.id}}" method="post" class="book-form">
+    <input type="submit" value="Yes, delete" style="width: 100%;">
+  </form>
+{% endblock %}

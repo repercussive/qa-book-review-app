@@ -1,0 +1,53 @@
+{% extends "_base.html" %}
+{% block body %}
+  <h2 style="margin-bottom: 1rem;">
+    {{'Create a new' if 'add' in form_action else 'Edit'}} review
+  </h2>
+  <form 
+    action="{{form_action}}" 
+    method="post" 
+    class="review-form"
+  >
+    {{ form.hidden_tag() }}
+    {{ form.book.label }} {{ form.book }}
+    {% if 'add' in form_action and book_id is none %}
+    <p style="margin-bottom: 1rem">
+      Don't see your book listed? <a href="/add-book?toreview=true">Add it here</a>.
+    </p>
+    {% endif %}
+    {{ form.rating.label }}<div><span id="star" class="accent">★</span>{{ form.rating }}</div>
+    {{ form.headline.label }} {{ form.headline }}
+    {{ form.body.label }} {{ form.body }}
+    {{ form.reviewer_name.label }} {{ form.reviewer_name }}
+    {{ form.submit }}
+  </form>
+{% endblock %}
+
+{% block style %}
+<style>
+  form.review-form select, form.review-form input {
+    min-width: 100%;
+    display: block;
+  }
+
+  form.review-form #rating {
+    min-width: calc(100% - 2rem);
+    display: inline-block;
+  }
+
+  form.review-form #star {
+    display: inline-block;
+    width: 2rem;
+    text-align: center;
+  }
+
+  form.review-form #body {
+    width: 100%;
+    min-height: 10rem;
+  }
+
+  form.review-form input[type=submit] {
+    width: 100%;
+  }
+</style>
+{% endblock %}

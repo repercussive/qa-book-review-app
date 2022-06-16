@@ -1,0 +1,52 @@
+<div class="book-summary-wrapper">
+  <h3>
+    <span>{{book_data.title}}</span>
+    <span style="font-weight: normal" class="faded">by {{book_data.author}}</span>
+  </h3>
+
+  <p style="margin-bottom: 1rem;">
+    {% if book_data.num_reviews > 0 %}
+    <b>{{book_data.avg_rating}}</b>
+    <span class="faded">
+      / 5 average rating (based on {{book_data.num_reviews}} 
+      review{{'' if book_data.num_reviews == 1 else 's'}})
+    </span>
+    {% else %}
+    <span class="faded">Unrated</span>
+    {% endif %}
+  </p>
+
+  <div class="actions">
+    {% if book_data.num_reviews > 0 %}
+    <a href="/reviews/{{book_id}}">See reviews</a>
+    {% else %}
+    <p class="faded">No reviews</p>
+    {% endif %}
+    <div style="margin-left: auto;"></div>
+    <a href="/add-review?book_id={{book_id}}">Add review</a>
+    <a href="/edit-book/{{book_id}}">Edit</a>
+    <a href="/delete-book/{{book_id}}">Delete</a>
+  </div>
+</div>
+
+<style>
+  .book-summary-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: solid 2px #868686;
+    background-color: #3b3b3b;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .book-summary-wrapper h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .book-summary-wrapper .actions {
+    display: flex;
+    gap: 1.25rem;
+  }
+</style>
