@@ -29,5 +29,10 @@ pipeline {
         '''
       }
     }
+    stage('Extract test results') {
+      steps {
+        cobertura coberturaReportFile: './coverage.xml'
+      }
+    }
   }
 }
