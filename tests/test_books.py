@@ -1,19 +1,30 @@
 from flask import url_for
 from application import db
-from application.models import Book, Review
+from application.models import Book, Genre, Review
 from tests import TestBase
 
 
 class TestBooks(TestBase):
   # [create] (add-book route, POST) adding a book via POST works
   def test_add_book(self):
+    # since the test book has genres associated with it, these need to be in the db first
+    test_genres = [Genre(name='Test Genre 1'), Genre(name='Test Genre 2')]
+    db.session.add_all(test_genres)
+    db.session.commit()
+    
     self.client.post(
         url_for('add_book'),
-        data={'title': 'Test Book', 'author': 'Test Author'}
+        data={
+          'title': 'Test Book',
+          'author': 'Test Author',
+          'genres': [1, 2]
+        }
     )
+    
     test_book = Book.query.first()
     assert test_book.title == 'Test Book'
     assert test_book.author == 'Test Author'
+    assert test_book.genres == test_genres
 
   # [read] (books route, GET) receiving books data via GET works
   def test_get_books(self):
@@ -24,18 +35,32 @@ class TestBooks(TestBase):
     assert b'A Cool Book' in response.data
     assert b'A Neat Author' in response.data
 
+  # [read] (books route, GET) filtering books by genre works
+  def test_get_genre_filtered_books(self):
+    test_genre = Genre(name='Test Genre')
+    db.session.add(test_genre)
+    db.session.add(Book(title='Book In Test Genre', author='Test Author', genres=[test_genre]))
+    db.session.add(Book(title='Book Not In Test Genre', author='Test Author'))
+    db.session.commit()
+    response = self.client.get(url_for('books', genre_id=1))
+    assert b'Book In Test Genre' in response.data
+    assert b'Book Not In Test Genre' not in response.data
+
   # [update] (edit-book route, POST) editing a book works
   def test_edit_book(self):
-    book_to_edit = Book(title='Test Book', author='Test Author')
-    db.session.add(book_to_edit)
+    db.session.add(Book(title='Test Book', author='Test Author'))
+    db.session.add(Genre(name='Test Genre'))
     db.session.commit()
 
     # edit book
     self.client.post(
-      url_for('edit_book', id=book_to_edit.id),
-      data={ 'title': 'Updated Title' }
+      url_for('edit_book', id=1),
+      data={ 'title': 'Updated Title', 'genres': [1] }
     )
-    assert Book.query.get(book_to_edit.id).title == 'Updated Title'
+
+    edited_book = Book.query.get(1)
+    assert edited_book.title == 'Updated Title'
+    assert edited_book.genres == [Genre.query.get(1)]
 
   # [delete] (delete-book route, POST) deleting a book works
   def test_delete_book(self):

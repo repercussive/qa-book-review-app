@@ -7,6 +7,7 @@
     {{ form.hidden_tag() }}
     {{ form.title.label }} {{ form.title }}
     {{ form.author.label }} {{ form.author }}
+    {{ form.genres.label }} {{ form.genres }}
     {{ form.submit }}
   </form>
 {% endblock %}
@@ -16,6 +17,30 @@
   form.book-form input {
     display: block;
     width: 100%;
+  }
+
+  #genres {
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #genres li {
+    display: flex;
+  }
+
+  #genres li label {
+    width: 10rem;
+    font-style: italic;
+  }
+
+  #genres input {
+    accent-color: var(--color-accent);
+    width: auto;
+  }
+
+  #genres input:focus {
+    outline: solid 2px var(--color-accent);
   }
 </style>
 {% endblock %}
