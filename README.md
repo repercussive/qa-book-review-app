@@ -137,7 +137,7 @@ Here is an overview of the resulting application.
 
 | ![image](https://user-images.githubusercontent.com/7796522/174320976-23ffb61f-b4d2-48ff-af6a-9957aeee6218.png) | 
 |:--:| 
-| `[/books]` *The `books` page shows a list of all books in the database by default, however it is also possible to filter by a specific genre or search for keywords in book titles. Each book listed contains links to add a review, edit the book, delete the book, or “See all reviews”.* |
+| `[/books]` *The `books` page shows a list of all books in the database by default, however it is also possible to filter by a specific genre or search for keywords in book titles. Each book listed contains links to add a review, edit the book, delete the book, or “See reviews”.* |
 
 | ![image](https://user-images.githubusercontent.com/7796522/174321043-54c2aa97-f9ab-4a28-a0da-03328cf02fa5.png) | 
 |:--:| 
