@@ -107,7 +107,7 @@ This project benefits from an automated test/build/deploy pipeline using Jenkins
 
 Firstly, Jenkins will automatically run the unit tests. If any of the tests fail, the build will be aborted, which prevents faulty versions of the application from being deployed.
 
-Next, Jenkins will copy the project files needed to run the application into the deployment VM. Then it runs the [deploy script] on the deployment VM which installs the project’s dependencies and starts the app using gunicorn, a WSGI server that can run the app on multiple processes (workers) simultaneously.
+Next, Jenkins will copy the project files needed to run the application into the deployment VM. Then it runs the [deploy script](https://github.com/repercussive/qa-book-review-app/blob/dev/deploy.sh) on the deployment VM which installs the project’s dependencies and starts the app using gunicorn, a WSGI server that can run the app on multiple processes (workers) simultaneously.
 
 The final step involves integration with the Cobertura plugin. This takes the XML coverage report generated during the testing stage and displays it within the Jenkins interface, as show below.
 
