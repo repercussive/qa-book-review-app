@@ -14,7 +14,7 @@ This repo includes my deliverable files for the QA DevOps Core Fundamental Proje
 8. [The app](#the-app)
 9. [Known issues](#known-issues)
 10. [Future developments](#future-developments)
-11. [Acknokwledgements](#acknowledgements)
+11. [Acknowledgements](#acknowledgements)
 
 ## Project requirements
 
