@@ -13,7 +13,8 @@ This repo includes my deliverable files for the QA DevOps Core Fundamental Proje
 7. [Automation](#automation)
 8. [The app](#the-app)
 9. [Known issues](#known-issues)
-10. [Acknokwledgements](#acknowledgements)
+10. [Future developments](#future-developments)
+11. [Acknokwledgements](#acknowledgements)
 
 ## Project requirements
 
@@ -149,6 +150,11 @@ Here is an overview of the resulting application.
 ## Known issues
 * There is nothing to prevent two identical books (with the same title and author) from being added
 * The app has limited error handling, e.g. if the user navigates to /review/999 (and there is no review with id 999) the app will simply display the traceback instead of showing a “Not found” page, or redirecting the user to an existing page
+
+## Future developments
+The app in its current state is quite rudimentary. The main way to develop this project further would be to add user accounts. This would present quite a few challenges related to security and user authentication. However, it would open up the door to more features such as:
+* Users could add books to their own personal reading lists
+* Reviews would be tied to a user, and could only be edited/deleted by that user (instead of being editable by anyone)
 
 ## Acknowledgements
 Thanks to Earl, Adam and Leon for their guidance on this project.
