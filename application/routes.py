@@ -65,7 +65,9 @@ def add_book():
     new_book.genres = get_genres_by_ids(form.genres.data or [])
     db.session.add(new_book)
     db.session.commit()
-    return redirect(url_for('add_review', book_id=new_book.id))
+    if request.args.get('toreview'):
+      return redirect(url_for('add_review', book_id=new_book.id))
+    return redirect(url_for('books'))
 
   return render_template('book-form.html', form=form, form_action='/add-book')
 
