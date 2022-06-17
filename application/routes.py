@@ -30,12 +30,10 @@ def books():
   if selected_genre_id:
     selected_genre = Genre.query.get(selected_genre_id)
     books = filter(lambda book: selected_genre in book.genres, books)
-
-  books_data = generate_books_data(books)
     
   return render_template(
     'books.html',
-    books_data=books_data,
+    books_data=generate_books_data(books),
     genres=Genre.query.all(),
     selected_genre_id=selected_genre_id,
     title_search_value=title_search_value,
